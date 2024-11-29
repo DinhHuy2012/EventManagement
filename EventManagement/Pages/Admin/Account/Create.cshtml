@@ -1,0 +1,119 @@
+﻿@page "/Admin/ManageAccount/Create"
+@using EventManagement.Models
+
+@model EventManagement.Pages.Admin.Account.CreateModel
+@using Microsoft.AspNetCore.Http;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@{
+    ViewBag.Title = "Create Account";
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+
+}
+<main>
+    <div class="page-content">
+        <div class="page-content-wrapper border">
+            <!-- Title -->
+            <div class="col-xl-12">
+                <!-- Edit profile START -->
+                <div class="card bg-transparent border rounded-3">
+                    <!-- Card header -->
+                    <div class="card-header bg-transparent border-bottom">
+                        <h3 class="card-header-title mb-0">Create Account</h3>
+                    </div>
+                    <!-- Card body START -->
+                    <div class="card-body">
+                        <!-- Form -->
+                        <form class="row g-4" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <!-- Full name -->
+                            <div class="col-6">
+                                <label asp-for="Users.Fullname" class="form-label"></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" asp-for="Users.Fullname">
+                                    <span asp-validation-for="Users.Fullname" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label asp-for="Users.Username" class="form-label"></label>
+                                <div class="input-group">
+                                    <input class="form-control" asp-for="Users.Username">
+
+                                </div>
+                                <span asp-validation-for="Users.Username" class="text-danger"></span>
+
+                            </div>
+                            <!-- Username -->
+                            <div class="col-md-6">
+                                <label asp-for="Users.Password" class="form-label"></label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" asp-for="Users.Password">
+
+                                </div>
+                                <span asp-validation-for="Users.Password" class="text-danger"></span>
+
+                            </div>
+
+                            <!-- Email id -->
+                            <div class="col-md-6">
+                                <label asp-for="Users.Email" class="form-label"></label>
+                                <div class="input-group">
+                                    <input class="form-control" asp-for="Users.Email">
+
+                                </div>								<span asp-validation-for="Users.Email" class="text-danger"></span>
+
+                            </div>
+
+                            <!-- Phone number -->
+                            <div class="col-md-6">
+                                <label class="form-label" asp-for="Users.Phone"></label>
+                                <input asp-for="Users.Phone" class="form-control">
+                                <span asp-validation-for="Users.Phone" class="text-danger"></span>
+
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Users.Role" class="form-label"></label>
+                                <select asp-for="Users.Role" class="form-control">
+                                    <option value="Người Đăng Kí">Người Đăng Kí</option>
+                                    <option value="Người Tạo Sự Kiện">Người Tạo Sự Kiện</option>
+
+                                </select>
+                                <span asp-validation-for="Users.Role" class="text-danger"></span>
+
+                            </div>
+
+                            <!-- Location -->
+                            <div class="col-md-6">
+                                <label asp-for="Users.Status" class="form-label"></label>
+                                <select asp-for="Users.Status" class="form-control">
+                                    <option value="True">Hoạt động</option>
+                                    <option value="False">Khoá tài khoản</option>
+
+                                </select>
+
+                            </div>
+
+                            <!-- About me -->
+                            <!-- Save button -->
+                            <div class="d-sm-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary mb-0">Save</button>
+                                <a style="padding:10px 0 0 10px" asp-page="./Index">Back to List</a>
+
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- Card body END -->
+                </div>
+            </div>
+            <!-- Page main content END -->
+
+        </div>
+        <!-- Page content END -->
+    </div>
+</main>
+
+

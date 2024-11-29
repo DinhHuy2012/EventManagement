@@ -1,0 +1,179 @@
+﻿
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from eduport.webestica.com/admin-student-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Mar 2022 02:58:40 GMT -->
+<head>
+	<title>@ViewData["Title"]</title>
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Webestica.com">
+	<meta name="description" content="Eduport- LMS, Education and Course Theme">
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="~/assets/images/logo.png">
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com/">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/aos/aos.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendor/overlay-scrollbar/css/OverlayScrollbars.min.css">
+
+	<!-- Theme CSS -->
+	<link id="style-switch" rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+</head>
+
+<body>
+	<main>
+		<nav class="top-bar navbar-light border-bottom py-0 py-xl-3">
+			<div class="container-fluid p-0">
+				<div class="d-flex align-items-center w-100">
+
+					<!-- Logo START -->
+					<div class="d-flex align-items-center d-xl-none">
+						<a class="navbar-brand" href="/Home">
+							<img class="light-mode-item navbar-brand-item h-30px" src="/assets/images/logo-mobile.svg" alt="">
+							<img class="dark-mode-item navbar-brand-item h-30px" src="/assets/images/logo-mobile-light.svg" alt="">
+						</a>
+					</div>
+					<!-- Logo END -->
+					<!-- Toggler for sidebar START -->
+					<div class="navbar-expand-xl sidebar-offcanvas-menu">
+						<button class="navbar-toggler me-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-expanded="false" aria-label="Toggle navigation" data-bs-auto-close="outside">
+							<i class="bi bi-text-right fa-fw h2 lh-0 mb-0 rtl-flip" data-bs-target="#offcanvasMenu"> </i>
+						</button>
+					</div>
+					<!-- Toggler for sidebar END -->
+					<!-- Top bar left -->
+					<div class="navbar-expand-lg ms-auto ms-xl-0">
+
+						<!-- Toggler for menubar START -->
+						<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTopContent" aria-controls="navbarTopContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-animation">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</button>
+						<!-- Toggler for menubar END -->
+						<!-- Topbar menu START -->
+					
+						<!-- Topbar menu END -->
+					</div>
+					<!-- Top bar left END -->
+					<!-- Top bar right START -->
+				
+					<!-- Top bar right END -->
+				</div>
+			</div>
+		</nav>
+		<!-- Sidebar START -->
+		<nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
+
+			<!-- Navbar brand for xl START -->
+			<div class="d-flex align-items-center">
+				<a style ="padding-left:70px" class="navbar-brand" href="/Home">
+					<img   src="/assets/images/logo.png"  height="100px" width="100px"  alt="">
+				</a>
+			</div>
+			<!-- Navbar brand for xl END -->
+
+			<div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
+				<div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
+
+					<!-- Sidebar menu START -->
+					<ul class="navbar-nav flex-column" id="navbar-sidebar">
+
+						<!-- Menu item 1 -->
+						<li class="nav-item @(ViewContext.RouteData.Values["page"]?.ToString() == "/Admin/Dashboard" ? "active" : "") "><a href="/Admin/Dashboard" class="nav-link"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
+
+						<!-- Title -->
+						<li class="nav-item ms-2 my-2">Pages</li>
+
+						<!-- menu item 2 -->
+						<li class="nav-item">
+							<a class="nav-link" data-bs-toggle="collapse" href="#collapsepage" role="button" aria-expanded="false" aria-controls="collapsepage">
+								<i class="bi bi-basket fa-fw me-2"></i>Events
+							</a>
+							<!-- Submenu -->
+							<ul class="nav collapse flex-column" id="collapsepage" data-bs-parent="#navbar-sidebar">
+								<li class="nav-item">
+									<a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString() == "/Admin/ManageEvent/Index" ? "active" : "")" href="/Admin/ManageEvent/Index">Events request</a>
+								</li>
+							
+							</ul>
+
+						</li>
+
+						<!-- Menu item 3 -->
+						<li class="nav-item">
+							<a class="nav-link @(ViewContext.RouteData.Values["page"]?.ToString() == "/Admin/ManageAccount/Index" ? "active" : "")" href="/Admin/ManageAccount/Index">
+								<i class="fas fa-user-graduate fa-fw me-2"></i>Accounts
+							</a>
+						</li>
+
+						<!-- Menu item 4 -->
+				
+						<!-- Menu item 5 -->
+
+						<!-- Menu item 6 -->
+
+						<!-- Menu item 7 -->
+
+
+					</ul>
+					<!-- Sidebar menu end -->
+					<!-- Sidebar footer START -->
+					<!-- Sidebar footer END -->
+
+				</div>
+			</div>
+		</nav>
+		<!-- Sidebar END -->
+		<!-- Page content START -->
+		@RenderBody();
+
+		<!-- Page content END -->
+
+	</main>
+	<!-- **************** MAIN CONTENT END **************** -->
+	<!-- Back to top -->
+	<div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+	<!-- Bootstrap JS -->
+	<script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Vendors -->
+	<script src="assets/vendor/aos/aos.js"></script>
+	<script src="assets/vendor/overlay-scrollbar/js/OverlayScrollbars.min.js"></script>
+
+	<!-- Template Functions -->
+	<script src="assets/js/functions.js"></script>
+	@RenderSection("jsFooter", required: false)
+
+
+</body>
+
+<!-- Mirrored from eduport.webestica.com/admin-student-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 16 Mar 2022 02:58:40 GMT -->
+</html>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const currentUrl = window.location.pathname;
+		const links = document.querySelectorAll(".nav-link");
+
+		links.forEach(link => {
+			if (link.getAttribute("href") === currentUrl) {
+				link.classList.add("active");
+			}
+		});
+	});
+</script>

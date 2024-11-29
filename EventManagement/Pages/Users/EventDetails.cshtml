@@ -1,0 +1,199 @@
+﻿@page "/EventDetails"
+@model EventManagement.Pages.Users.EventDetailsModel
+@{
+	ViewBag.Title = "EventDetails";
+
+	Layout = "~/Pages/Shared/_Layout.cshtml";
+
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+	var userEmail = HttpContextAccessor.HttpContext.Session.GetString("userEmail");
+	var userName = HttpContextAccessor.HttpContext.Session.GetString("userName");
+	var avatar = HttpContextAccessor.HttpContext.Session.GetString("avatar");
+	var role = HttpContextAccessor.HttpContext.Session.GetString("role");
+	var userID = HttpContextAccessor.HttpContext.Session.GetString("userID");
+
+}
+<!-- Header START -->
+
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+
+	
+<!-- =======================
+Main Content START -->
+<section class="pb-0 pt-4 pb-md-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+
+				<!-- Title and Info START -->
+				<div class="row">
+					<div class="col-lg-9 order-1">
+						<!-- Pre title -->
+						<span>
+							<img src="/assets/images/events/start.png" height="20px" width="20px" />
+							@Model.Event.StartTime - @Model.Event.EndTime
+						</span><span class="mx-2">|</span><div class="badge bg-success text-white">@Model.Event.Category.Description</div>
+						<!-- Title -->
+						<h3 class="mt-2 mb-0 ">@Model.Event.Title</h3>	<h5 class="mt-2 mb-0 ">
+							<img src="/assets/images/events/map.png" height="20px" width="20px" />
+							@Model.Event.Location
+						</h5>
+						<h5 class="mt-2 mb-0 ">
+							Giới hạn người tham gia : @Model.Event.Capacity <img src="/assets/images/events/team.png" height="20px" width="20px" />
+
+						</h5>
+						<!-- Info -->
+						<p class="mt-2">Description : @Model.Event.Description</p>
+						<h5>
+							Total Registered:     <span id="totalRegistered">@Model.TotalRegistered</span> người tham gia
+						</h5>
+
+						
+						<div class="card overflow-hidden h-200px h-sm-300px h-lg-400px h-xl-500px rounded-3 text-center" style="background-image:url(/assets/images/events/@Model.Event.Image); background-position: center left; background-size: cover;">
+							<!-- Card Image overlay -->
+							<div class="bg-overlay bg-dark opacity-4"></div>
+							<div class="card-img-overlay d-flex align-items-center p-2 p-sm-4">
+								<div class="w-100 my-auto">
+									<div class="row justify-content-center">
+										<!-- Video -->
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Avatar and Share -->
+					<div class="col-lg-3 align-items-center mt-4 mt-lg-5 order-2 order-lg-1">
+						<div class="text-lg-center">
+							<!-- Author info -->
+							<div class="position-relative">
+								<!-- Avatar -->
+								<div class="avatar avatar-xxl">
+									<img class="avatar-img rounded-circle" src="/assets/images/avatar/@Model.Event.Organizer.Avatar" alt="avatar">
+								</div>
+								<a href="#" class="h5 stretched-link mt-2 mb-0 d-block">@Model.Event.Organizer.Username</a>
+								<p class="mb-2">Organizer of Events</p>
+							</div>
+							<!-- Info -->
+							<ul class="list-inline list-unstyled">
+								<li class="list-inline-item d-lg-block my-lg-2">JoinDate: @Model.Event.Organizer.JoinDate</li>
+							</ul>
+							<h4 class="mt-3 mt-sm-0">Đăng kí tham gia sự kiện</h4>
+							@if (TempData["SuccessMessage"] != null)
+							{
+								<div class="alert alert-success" id="come-on">
+									@TempData["SuccessMessage"]
+								</div>
+							}
+							@if (TempData["ErrorMessage"] != null)
+							{
+								<div class="alert alert-danger">
+									@TempData["ErrorMessage"]
+								</div>
+							}
+							<form method="post" class="row g-3 mt-2 mb-5">
+								<!-- Name -->
+								<div class="col-lg-12">
+									<input asp-for="Attendee.UserId" value="@userID" class="form-control" type="hidden">
+									<span asp-validation-for="Attendee.UserId" class="text-danger"></span>
+
+								</div>
+								<!-- Email -->
+								<div class="col-lg-12">
+									<input asp-for="Attendee.EventId" value="@Model.Event.EventId" type="hidden" class="form-control">
+									<span asp-validation-for="Attendee.EventId" class="text-danger"></span>
+
+								</div>
+								<div class="col-lg-12">
+									<input asp-for="Attendee.Status" value="Pending" class="form-control" type="hidden">
+									<span asp-validation-for="Attendee.Status" class="text-danger"></span>
+
+								</div>
+								<div class="col-lg-12">
+									<label asp-for="Attendee.Name" class="form-label"></label>
+									<input asp-for="Attendee.Name" class="form-control">
+									<span asp-validation-for="Attendee.Name" class="text-danger"></span>
+
+								</div>
+								<!-- Email -->
+								<div class="col-lg-12">
+									<label asp-for="Attendee.Email" class="form-label"></label>
+									<input asp-for="Attendee.Email" class="form-control">
+									<span asp-validation-for="Attendee.Email" class="text-danger"></span>
+
+								</div>
+								<!-- Comment -->
+							
+								<!-- Button -->
+								<div class="col-12">
+									<button type="submit" class="btn btn-primary mb-0">Đăng kí</button>
+								</div>
+							
+							</form>
+						</div>
+					</div>
+					
+					<!-- Content -->
+				
+				</div>
+				<!-- Title and Info END -->
+
+				<!-- Video START -->
+			
+				<!-- Video END -->
+
+				<!-- Quote and content START -->
+			
+				<!-- Quote and content END -->
+
+				<!-- Image START -->
+			
+				<!-- Image END -->
+
+				<!-- Content START -->
+			
+				<!-- Content END -->
+
+				<!-- Tags and share START -->
+				
+
+				<hr> <!-- Divider -->
+
+				<!-- Comment review and form START -->
+				
+				<!-- Comment review and form END -->
+			</div>
+		</div> <!-- Row END -->
+	</div>
+</section>
+<!-- =======================
+Main Content END -->
+
+<!-- =======================
+Related blog START -->
+
+<!-- =======================
+Related blog END -->
+@section Scripts {
+	<script type="text/javascript" src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+	<script type="text/javascript">
+		const connection = new signalR.HubConnectionBuilder()
+			.withUrl("/SignalRHub")
+			.build();
+
+		connection.on("UpdateTotalRegistered", function (totalRegistered) {
+			document.getElementById("totalRegistered").innerText = totalRegistered;
+		});
+
+		connection.start().catch(function (err) {
+			return console.error(err.toString());
+		});
+	</script>
+}

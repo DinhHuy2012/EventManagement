@@ -1,0 +1,187 @@
+﻿@page "/MyEvents"
+@model EventManagement.Pages.Users.Events.MyEventsModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewBag.Title = "My Events";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+@{
+    var userEmail = HttpContextAccessor.HttpContext.Session.GetString("userEmail");
+    var userName = HttpContextAccessor.HttpContext.Session.GetString("userName");
+    var avatar = HttpContextAccessor.HttpContext.Session.GetString("avatar");
+    var role = HttpContextAccessor.HttpContext.Session.GetString("role");
+    var phone = HttpContextAccessor.HttpContext.Session.GetString("phone");
+    var userID = HttpContextAccessor.HttpContext.Session.GetString("userID");
+    var joinDate = HttpContextAccessor.HttpContext.Session.GetString("joinDate");
+
+}
+<!-- Header START --
+    <!-- =======================
+    Main Banner START -->
+<section class="pt-0">
+    <!-- Main banner background image -->
+    <div class="container-fluid px-0">
+        <div class="bg-blue h-100px h-md-50px rounded-0" style="background:url(assets/images/pattern/03.png) no-repeat center center; background-size:cover;">
+        </div>
+    </div>
+    <div class="container mt-n4">
+        <div class="row">
+            <!-- Profile banner START -->
+            <div class="col-12">
+                <div class="card bg-transparent card-body p-0">
+                    <div class="row d-flex justify-content-between">
+                        <!-- Avatar -->
+                        <div class="col-auto mt-4 mt-md-0">
+                            <div class="avatar avatar-xxl mt-n3">
+                                <img class="avatar-img rounded-circle border border-white border-3 shadow" src="assets/images/avatar/@Model.Users.Avatar" alt="">
+                            </div>
+                        </div>
+                        <!-- Profile info -->
+                        <div class="col d-md-flex justify-content-between align-items-center mt-4">
+                            <div>
+                                <h1 class="my-1 fs-4">@Model.Users.Username <i class="bi bi-patch-check-fill text-info small"></i></h1>
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-user"></i> @Model.Users.Role</li>
+
+                                    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-calendar"></i> @Model.Users.JoinDate</li>
+                                </ul>
+                            </div>
+                            <!-- Button -->
+                            <div class="d-flex align-items-center mt-2 mt-md-0">
+                                <a href="/CreateEvent" class="btn btn-success mb-0">Create a event</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profile banner END -->
+                <!-- Advanced filter responsive toggler START -->
+                <!-- Divider -->
+                <hr class="d-xl-none">
+                <div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
+                    <a class="h6 mb-0 fw-bold d-xl-none" href="#">Menu</a>
+                    <button class="btn btn-primary d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+                </div>
+                <!-- Advanced filter responsive toggler END -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =======================
+Main Banner END -->
+<!-- =======================
+Inner part START -->
+<section class="pt-0">
+    <div class="container">
+        <div class="row">
+            <!-- Right sidebar START -->
+            <div class="col-xl-2">
+                <!-- Responsive offcanvas body START -->
+                <nav class="navbar navbar-light navbar-expand-xl mx-0">
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                        <!-- Offcanvas header -->
+                        <div class="offcanvas-header bg-light">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <!-- Offcanvas body -->
+                        <div class="offcanvas-body p-3 p-xl-0">
+                            <div class="bg-dark border rounded-3 pb-0 p-3 w-100">
+                                <!-- Dashboard menu -->
+                                <div class="list-group list-group-dark list-group-borderless">
+                                    <a class="list-group-item active" href="/MyEvents?Id=@userID"><i class="bi bi-basket fa-fw me-2"></i>My Events</a>
+                                    <a class="list-group-item " href="/Profile?Id=@userID"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Responsive offcanvas body END -->
+            </div>
+            <!-- Right sidebar END -->
+            <!-- Main content START -->
+            <div class="col-xl-10">
+                <!-- Card START -->
+                <div class="card border bg-transparent rounded-3">
+                    <!-- Card header START -->
+                    <div class="card-header bg-transparent border-bottom">
+                        <h3 class="mb-0">My Events List</h3>
+                    </div>
+                    <!-- Card header END -->
+                    <!-- Card body START -->
+                    <div class="card-body">
+
+                        <!-- Search and select START -->
+                        <div class="row g-3 align-items-center justify-content-between mb-4">
+                            <!-- Search -->
+                            <div class="col-md-8">
+                                <form class="rounded position-relative">
+                                    <input id="searchInput" class="form-control bg-transparent" oninput="ShowMyEvents()" type="search" placeholder="Search by Title,Category." aria-label="Search">
+                                    <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
+                                </form>
+                            </div>
+
+                            <!-- Select option -->
+
+                        </div>
+                        <!-- Search and select END -->
+                        <!-- Course list table START -->
+                        <div class="table-responsive-lg border-0">
+                            <table class="table table-dark-gray align-middle p-4 mb-0 table-hover" >
+                                <!-- Table head -->
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="border-0 rounded-start">EventID</th>
+                                        <th scope="col" class="border-0">Event Title</th>
+                                        <th scope="col" class="border-0">Request</th>
+                                        <th scope="col" class="border-0">Status</th>
+                                        <th scope="col" class="border-0 rounded-end">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <!-- Table body START -->
+                                <tbody>
+                                    <!-- Table item -->
+                              
+
+
+
+                                </tbody>
+                                <!-- Table body END -->
+                            </table>
+                        </div>
+                        <!-- Course list table END -->
+                        <!-- Pagination START -->
+                        <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+                            <!-- Content -->
+                            <p class="mb-0 text-center text-sm-start">Showing <span id="startIndex"></span> to <span id="endIndex"></span> of <span id="totalEvents"></span> entries</p>
+                            <!-- Pagination -->
+                            <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+                                <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
+                                        
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Pagination END -->
+                    </div>
+               
+                    <!-- Card body START -->
+                </div>
+                <!-- Card END -->
+            </div>
+            <!-- Main content END -->
+        </div><!-- Row END -->
+    </div>
+</section>
+<script>
+    var userId = '@@Model.Users.UserId'; // Hoặc lấy từ Model của bạn
+</script>
+<!-- =======================
+Inner part END -->
+<script type="text/javascript" src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+
+<script src="~/js/myEvent.js" asp-append-version="true"></script>

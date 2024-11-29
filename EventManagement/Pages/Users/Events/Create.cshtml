@@ -1,0 +1,228 @@
+﻿@page "/CreateEvent"
+@model EventManagement.Pages.Users.Events.CreateModel
+@{
+}
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewBag.Title = "My Events";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+@{
+    var userEmail = HttpContextAccessor.HttpContext.Session.GetString("userEmail");
+    var userName = HttpContextAccessor.HttpContext.Session.GetString("userName");
+    var avatar = HttpContextAccessor.HttpContext.Session.GetString("avatar");
+    var role = HttpContextAccessor.HttpContext.Session.GetString("role");
+    var phone = HttpContextAccessor.HttpContext.Session.GetString("phone");
+    var userID = HttpContextAccessor.HttpContext.Session.GetString("userID");
+    var joinDate = HttpContextAccessor.HttpContext.Session.GetString("joinDate");
+
+}
+<!-- Header START --
+    <!-- =======================
+    Main Banner START -->
+<section class="pt-0">
+    <!-- Main banner background image -->
+    <div class="container-fluid px-0">
+        <div class="bg-blue h-100px h-md-50px rounded-0" style="background:url(assets/images/pattern/03.png) no-repeat center center; background-size:cover;">
+        </div>
+    </div>
+    <div class="container mt-n4">
+        <div class="row">
+            <!-- Profile banner START -->
+            <div class="col-12">
+                <div class="card bg-transparent card-body p-0">
+                    <div class="row d-flex justify-content-between">
+                        <!-- Avatar -->
+                        <div class="col-auto mt-4 mt-md-0">
+                            <div class="avatar avatar-xxl mt-n3">
+                                <img class="avatar-img rounded-circle border border-white border-3 shadow" src="assets/images/avatar/@Model.Users.Avatar" alt="">
+                            </div>
+                        </div>
+                        <!-- Profile info -->
+                        <div class="col d-md-flex justify-content-between align-items-center mt-4">
+                            <div>
+                                <h1 class="my-1 fs-4">@Model.Users.Username <i class="bi bi-patch-check-fill text-info small"></i></h1>
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-user"></i> @Model.Users.Role</li>
+
+                                    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-calendar"></i> @Model.Users.JoinDate</li>
+                                </ul>
+                            </div>
+                            <!-- Button -->
+                            <div class="d-flex align-items-center mt-2 mt-md-0">
+                                <a href="/CreateEvent" class="btn btn-success mb-0">Create a event</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profile banner END -->
+                <!-- Advanced filter responsive toggler START -->
+                <!-- Divider -->
+                <hr class="d-xl-none">
+                <div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
+                    <a class="h6 mb-0 fw-bold d-xl-none" href="#">Menu</a>
+                    <button class="btn btn-primary d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+                </div>
+                <!-- Advanced filter responsive toggler END -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =======================
+Main Banner END -->
+<!-- =======================
+Inner part START -->
+<section class="pt-0">
+    <div class="container">
+        <div class="row">
+            <!-- Right sidebar START -->
+            <div class="col-xl-2">
+                <!-- Responsive offcanvas body START -->
+                <nav class="navbar navbar-light navbar-expand-xl mx-0">
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                        <!-- Offcanvas header -->
+                        <div class="offcanvas-header bg-light">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <!-- Offcanvas body -->
+                        <div class="offcanvas-body p-3 p-xl-0">
+                            <div class="bg-dark border rounded-3 pb-0 p-3 w-100">
+                                <!-- Dashboard menu -->
+                                <div class="list-group list-group-dark list-group-borderless">
+                                    <a class="list-group-item active" href="/MyEvents?Id=@userID"><i class="bi bi-basket fa-fw me-2"></i>My Events</a>
+                                    <a class="list-group-item " href="/Profile?Id=@userID"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Responsive offcanvas body END -->
+            </div>
+            <!-- Right sidebar END -->
+            <!-- Main content START -->
+            <div class="col-xl-10">
+                <!-- Card START -->
+                <div class="card border bg-transparent rounded-3">
+                    <!-- Card header START -->
+                    <div class="card-header bg-transparent border-bottom">
+                        <h3 class="mb-0">Create new Event</h3>
+                    </div>
+                    <!-- Card header END -->
+                    <!-- Card body START -->
+                    <div class="card-body">
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+                        <!-- Search and select START -->
+                        <!-- Search and select END -->
+                        <!-- Course list table START -->
+                        <!-- Step 1 content START -->
+                        <div>
+                            <!-- Title -->
+                            <!-- Basic information START -->
+                            <form method="post">
+                                <div class="row g-4">
+                                    <!-- Course title -->
+                                 
+                                    <div class="col-12">
+                                        <label asp-for="Events.Title" class="form-label"></label>
+                                        <input class="form-control" asp-for="Events.Title">
+                                    </div>
+                                    <span asp-validation-for="Events.Title" class="text-danger"></span>
+
+                                    <!-- Short description -->
+                                    <div class="col-12">
+                                        <label asp-for="Events.Description" class="form-label"></label>
+                                        <textarea asp-for="Events.Description" class="form-control" rows="2"></textarea>
+                                    </div>
+                                    <span asp-validation-for="Events.Description" class="text-danger"></span>
+
+                                    <!-- Course category -->
+                                    <div class="col-md-6">
+                                        <label asp-for="Events.Category" class="form-label"></label>
+                                        <select class="form-control" asp-for="Events.CategoryId">
+                                            <option value="">Select category</option>
+                                            @foreach (var cate in Model.EventCategory)
+                                            {
+                                                <option value="@cate.CategoryId">@cate.Description</option>
+
+                                            }
+
+                                        </select>
+                                        <span asp-validation-for="Events.Category" class="text-danger"></span>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Events.Location" class="form-label"></label>
+                                        <input asp-for="Events.Location" class="form-control">
+                                        <span asp-validation-for="Events.Location" class="text-danger"></span>
+
+                                    </div>
+                                    <!-- Course time -->
+                                    <div class="col-md-6">
+                                        <label asp-for="Events.StartTime" class="form-label"></label>
+                                        <input asp-for="Events.StartTime" class="form-control" >
+                                        <span asp-validation-for="Events.StartTime" class="text-danger"></span>
+
+                                    </div>
+
+                                    <!-- Total lecture -->
+                                    <div class="col-md-6">
+                                        <label asp-for="Events.EndTime" class="form-label"></label>
+                                        <input asp-for="Events.EndTime" class="form-control" >
+                                        <span asp-validation-for="Events.EndTime" class="text-danger"></span>
+
+                                    </div>
+
+
+                                    <!-- Course price -->
+                                  
+                                    <!-- Course discount -->
+                                    <div class="col-md-6">
+                                        <label asp-for="Events.Capacity" class="form-label"></label>
+                                        <input class="form-control" asp-for="Events.Capacity" min="0">
+                                        <span asp-validation-for="Events.Capacity" class="text-danger"></span>
+
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Events.Image" class="form-label"></label>
+                                        <input class="form-control" asp-for="Events.Image" type="file">
+                                        <span asp-validation-for="Events.Image" class="text-danger" ></span>
+
+
+                                    </div>
+
+
+                                    <!-- Step 1 button -->
+                                    <div class="d-flex justify-content-end mt-3">
+                                        <button type="submit" class="btn btn-primary next-btn mb-0">Create</button>
+                                    </div>
+                                </div>
+                            </form>
+                        
+                            <!-- Basic information START -->
+                        </div>
+                        <!-- Pagination END -->
+                    </div>
+
+                    <!-- Card body START -->
+                </div>
+                <!-- Card END -->
+            </div>
+            <!-- Main content END -->
+        </div><!-- Row END -->
+    </div>
+</section>
+
+<!-- =======================
+Inner part END -->

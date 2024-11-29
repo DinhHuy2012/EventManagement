@@ -1,0 +1,248 @@
+﻿@page "/Admin/ManageAccount/Details"
+@model EventManagement.Pages.Admin.Account.DetailsModel
+@{
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@{
+	var item = Model.User;
+	ViewBag.Title = "Account : " + item.Username;
+	Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+	
+	var attendees = Model.Attendees;
+	var user = @HttpContextAccessor.HttpContext.Session.GetString("userEmail");
+}
+
+
+
+	<!-- **************** MAIN CONTENT START **************** -->
+	<main>
+
+		<div class="page-content">
+
+			<!-- Top bar START -->
+	
+			<!-- Top bar END -->
+			<!-- Page main content START -->
+			<div class="page-content-wrapper border">
+
+				<!-- Title -->
+				<div class="row">
+					<div class="col-12 mb-3">
+						<h1 class="h3 mb-2 mb-sm-0">Account Details</h1>
+					</div>
+				</div>
+
+				<div class="row g-4">
+
+					<!-- Personal information START -->
+					<div class="col-xxl-12">
+						<div class="card bg-transparent border rounded-3 h-100">
+
+							<!-- Card header -->
+							<div class="card-header bg-light border-bottom">
+								<h5 class="card-header-title mb-0">Personal Information</h5>
+							</div>
+
+							<!-- Card body START -->
+							<div class="card-body">
+								<!-- Profile picture -->
+								<div class="avatar avatar-xl mb-3">
+									<img class="avatar-img rounded-circle border border-white border-3 shadow" src="/assets/images/avatar/@Html.DisplayFor(model => model.User.Avatar)" alt="">
+								</div>
+
+								<!-- Information START -->
+								<div class="row">
+
+									<!-- Information item -->
+									<div class="col-md-6">
+										<ul class="list-group list-group-borderless">
+									
+											<li class="list-group-item">
+												<span>Full Name:</span>
+												<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Fullname)</span>
+											</li>
+
+											<li class="list-group-item">
+												<span>User Name:</span>
+												<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Username)</span>
+											</li>
+											<li class="list-group-item">
+												<span>Password:</span>
+												<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Password)</span>
+											</li>
+											<li class="list-group-item">
+												<span>Mobile Number:</span>
+												<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Phone)</span>
+											</li>
+										</ul>
+									</div>
+
+									<!-- Information item -->
+									<div class="col-md-6">
+										<ul class="list-group list-group-borderless">
+											<li class="list-group-item">
+												<span>Email ID:</span>
+												<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Email)</span>
+											</li>
+
+											<li class="list-group-item">
+												<span>Role:</span>
+												<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Role)</span>
+											</li>
+											<li class="list-group-item">
+												<span>Status:</span>
+												<span class="h6 mb-0">@item.Status</span>
+											</li>
+
+											<li class="list-group-item">
+												<span>Joining Date:</span>
+												<span class="h6 mb-0">@Html.DisplayFor(model => model.User.JoinDate)</span>
+											</li>
+										</ul>
+									</div>
+
+									<!-- Information item -->
+								<div style="padding:50px 50px 50px 550px">
+									<input type="hidden" asp-for="User.UserId" />
+									<a href="/Admin/ManageAccount/Delete?Id=@item.UserId" class="btn btn-danger">Delete</a>  |
+									<a asp-page="./Index">Back to List</a>
+								</div>1
+								</div>
+								<!-- Information END -->
+							</div>
+							<!-- Card body END -->
+						</div>
+					</div>
+				@if (attendees != null && attendees.Any())
+									       {
+					<div class="col-12">
+						<div class="card bg-transparent border h-100">
+
+							<!-- Card header -->
+							<div class="card-header bg-light border-bottom">
+								<h5 class="mb-0">Events List</h5>
+							</div>
+
+							<!-- Card body START -->
+								
+							<div class="card-body pb-0">
+								<!-- Table START -->
+								<div class="table-responsive border-0">
+									<table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+
+										<!-- Table head -->
+										<thead>
+											<tr>
+												<th scope="col" class="border-0 rounded-start">Event Name</th>
+											    <th scope="col" class="border-0">Duration</th>
+
+												<th scope="col" class="border-0">Email Register</th>
+												<th scope="col" class="border-0">Name Register</th>
+												<th scope="col" class="border-0">Time Register</th>
+
+												<th scope="col" class="border-0">Status</th>
+												<th scope="col" class="border-0 rounded-end">Action</th>
+
+											</tr>
+										</thead>
+
+										<!-- Table body START -->
+										<tbody>
+											<!-- Table row -->
+									
+												@foreach (var attendee in attendees)
+												{
+													<tr>
+												
+														<!-- Table data -->
+														<td class="text-center text-sm-start d-flex align-items-center position-relative">
+															<div class="w-60px"><img src="/assets/images/courses/4by3/08.jpg" class="rounded" alt=""></div>
+															<h6 class="mb-0 ms-2"><a href="#" class="stretched-link">@attendee.Event.Title</a></h6>
+														</td>
+													<td>@attendee.Event.StartTime.ToString("dd/MM/yyyy hh:mm tt") - @attendee.Event.EndTime.ToString("dd/MM/yyyy hh:mm tt") </td>
+
+														<!-- Table data -->
+														<td>@attendee.Email</td>
+														<td>@attendee.Name</td>
+													<td>
+														@attendee.RegistrationTime.ToString("dd/MM/yyyy hh:mm tt")
+													</td>
+
+														<!-- Table data -->
+													@if (@attendee.Status == "Tham gia")
+													{
+														<td>
+															<span class="badge bg-success bg-opacity-15 text-success">@attendee.Status</span>
+														</td>
+													}
+													else
+													{
+														<td>
+															<span class="badge bg-warning bg-opacity-15 text-warning">@attendee.Status</span>
+														</td>
+													}
+
+												
+														<!-- Table data -->
+														<td>
+															<a href="#" class="btn btn-sm btn-info-soft mb-0">View</a>
+														</td>
+													</tr>
+												}
+
+											
+										
+									
+										</tbody>
+										<!-- Table body END -->
+									</table>
+								</div>
+								<!-- Table END -->
+							</div>
+						
+							<!-- Card body END -->
+							<!-- Card footer START -->
+							<div class="card-footer bg-transparent">
+								<!-- Pagination START -->
+								<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+									<!-- Content -->
+									<p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+									<!-- Pagination -->
+									<nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+										<ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
+											<li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
+											<li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+											<li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
+											<li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
+											<li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+										</ul>
+									</nav>
+								</div>
+								<!-- Pagination END -->
+							</div>
+							<!-- Card footer END -->
+						</div>
+					</div>
+					}
+					else
+					{
+						<p>No attendees found.</p>
+					}
+					<!-- Instructor course list END -->
+					<!-- Student review START -->
+				
+					<!-- Student review END -->
+
+				</div> <!-- Row END -->
+			</div>
+			<!-- Page main content END -->
+
+		</div>
+		<!-- Page content END -->
+
+	</main>
+
+

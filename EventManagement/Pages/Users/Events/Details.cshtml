@@ -1,0 +1,403 @@
+﻿@page "/MyEventDetails"
+@model EventManagement.Pages.Users.Events.DetailsModel
+@{
+}
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewBag.Title = "My Events Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+@{
+    var userEmail = HttpContextAccessor.HttpContext.Session.GetString("userEmail");
+    var userName = HttpContextAccessor.HttpContext.Session.GetString("userName");
+    var avatar = HttpContextAccessor.HttpContext.Session.GetString("avatar");
+    var role = HttpContextAccessor.HttpContext.Session.GetString("role");
+    var phone = HttpContextAccessor.HttpContext.Session.GetString("phone");
+    var userID = HttpContextAccessor.HttpContext.Session.GetString("userID");
+    var joinDate = HttpContextAccessor.HttpContext.Session.GetString("joinDate");
+
+}
+<!-- Header START --
+    <!-- =======================
+    Main Banner START -->
+
+<!-- =======================
+Main Banner END -->
+<!-- =======================
+Inner part START -->
+<section class="pt-0">
+    <!-- Main banner background image -->
+    <div class="container-fluid px-0">
+        <div class="bg-blue h-100px h-md-50px rounded-0" style="background:url(assets/images/pattern/03.png) no-repeat center center; background-size:cover;">
+        </div>
+    </div>
+    <div class="container mt-n4">
+        <div class="row">
+            <!-- Profile banner START -->
+            <div class="col-12">
+                <div class="card bg-transparent card-body p-0">
+                    <div class="row d-flex justify-content-between">
+                        <!-- Avatar -->
+                        <div class="col-auto mt-4 mt-md-0">
+                            <div class="avatar avatar-xxl mt-n3">
+                                <img class="avatar-img rounded-circle border border-white border-3 shadow" src="assets/images/avatar/@Model.Users.Avatar" alt="">
+                            </div>
+                        </div>
+                        <!-- Profile info -->
+                        <div class="col d-md-flex justify-content-between align-items-center mt-4">
+                            <div>
+                                <h1 class="my-1 fs-4">@Model.Users.Username <i class="bi bi-patch-check-fill text-info small"></i></h1>
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-user"></i> @Model.Users.Role</li>
+
+                                    <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-calendar"></i> @Model.Users.JoinDate</li>
+                                </ul>
+                            </div>
+                            <!-- Button -->
+                            <div class="d-flex align-items-center mt-2 mt-md-0">
+                                <a href="/CreateEvent" class="btn btn-success mb-0">Create a event</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profile banner END -->
+                <!-- Advanced filter responsive toggler START -->
+                <!-- Divider -->
+                <hr class="d-xl-none">
+                <div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
+                    <a class="h6 mb-0 fw-bold d-xl-none" href="#">Menu</a>
+                    <button class="btn btn-primary d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <i class="fas fa-sliders-h"></i>
+                    </button>
+                </div>
+                <!-- Advanced filter responsive toggler END -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =======================
+Main Banner END -->
+<!-- =======================
+Inner part START -->
+<section class="pt-0">
+    <div class="container">
+        <div class="row">
+            <!-- Right sidebar START -->
+            <div class="col-xl-2">
+                <!-- Responsive offcanvas body START -->
+                <nav class="navbar navbar-light navbar-expand-xl mx-0">
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                        <!-- Offcanvas header -->
+                        <div class="offcanvas-header bg-light">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <!-- Offcanvas body -->
+                        <div class="offcanvas-body p-3 p-xl-0">
+                            <div class="bg-dark border rounded-3 pb-0 p-3 w-100">
+                                <!-- Dashboard menu -->
+                                <div class="list-group list-group-dark list-group-borderless">
+                                    <a class="list-group-item active" href="/MyEvents?Id=@userID"><i class="bi bi-basket fa-fw me-2"></i>My Events</a>
+                                    <a class="list-group-item " href="/Profile?Id=@userID"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Responsive offcanvas body END -->
+            </div>
+            <!-- Right sidebar END -->
+            <!-- Main content START -->
+            <div class="col-xl-10">
+                <!-- Card START -->
+                <div class="card border bg-transparent rounded-3">
+                    <!-- Card header START -->
+                    <div class="card-header bg-transparent border-bottom">
+                        <h5 class="card-header-title">@Model.Event.Title</h5>
+                    </div>
+                    <!-- Card header END -->
+                    <!-- Card body START -->
+                    <div class="card-body">
+
+                        <!-- Search and select START -->
+                        <!-- Search and select END -->
+                        <!-- Course list table START -->
+                        <!-- Step 1 content START -->
+                        <div class="row g-4">
+                            <!-- Course image -->
+                            <div class="col-md-6">
+                                <img src="/assets/images/events/@Model.Event.Image" class="rounded" alt="">
+                            </div>
+                            <!-- Course info and avatar -->
+                            <div class="col-md-6">
+                                <!-- Info -->
+                                <p class="mb-3">@Model.Event.Description</p>
+
+                                <!-- Price -->
+                                <!-- Avatar -->
+                                <div class="d-sm-flex align-items-center">
+                                    <!-- Avatar image -->
+                                    <div class="avatar avatar-md">
+                                        <img class="avatar-img rounded-circle" src="/assets/images/avatar/@Model.Event.Organizer.Avatar" alt="avatar">
+                                    </div>
+                                    <div class="ms-sm-3 mt-2 mt-sm-0">
+                                        <h6 class="mb-0"><a href="#">@Model.Event.Organizer.Username</a></h6>
+                                        <p class="mb-0 small">JoinDated : @Model.Event.Organizer.JoinDate.ToString("dd-MM-yyyy")</p>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+
+                                    <!-- Information item -->
+                                    <div class="col-md-6">
+                                        <ul class="list-group list-group-borderless">
+                                            <li class="list-group-item">
+                                                <span>Location:</span>
+                                                <span class="h6 mb-0">@Model.Event.Location</span>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span>Release date:</span>
+                                                <span class="h6 mb-0">@Model.Event.StartTime</span>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span>End date:</span>
+                                                <span class="h6 mb-0">@Model.Event.EndTime</span>
+                                            </li>
+
+
+                                            <li class="list-group-item">
+                                                <span>Total Duration:</span>
+                                                <span class="h6 mb-0">
+                                                    @{
+                                                        var duration = Model.Event.EndTime - Model.Event.StartTime;
+                                                        var totalDays = duration.Days;
+                                                        var totalHours = duration.Hours;
+                                                    }
+                                                    @(totalDays > 0 ? $"{totalDays} day{(totalDays > 1 ? "s" : "")} " : "")
+                                                    @(totalHours > 0 ? $"{totalHours} hour{(totalHours > 1 ? "s" : "")}" : "")
+                                                </span>
+                                            </li>
+
+
+
+
+
+                                        </ul>
+                                    </div>
+
+                                    <!-- Information item -->
+                                    <div class="col-md-6">
+                                        <ul class="list-group list-group-borderless">
+                                            <li class="list-group-item">
+                                                <span>Category:</span>
+                                                <span class="badge bg-success bg-opacity-15 text-success">@Model.Event.Category.CategoryName</span>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <span>Total Registered:</span>
+                                                <span class="h6 mb-0">@Model.TotalRegistered</span>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <span>Capacity:</span>
+                                                <span class="h6 mb-0">@Model.TotalRegistered / @Model.Event.Capacity</span>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span>Status:</span>
+
+                                                @if (Model.Event.Status == 1)
+                                                {
+
+                                                    <span class="badge bg-success bg-opacity-15 text-success">Live</span>
+
+                                                }
+                                                else if (Model.Event.Status == 2)
+                                                {
+
+                                                    <span class="badge bg-warning bg-opacity-15 text-warning">Pending</span>
+
+                                                }
+                                                else
+                                                {
+
+                                                    <span class="badge bg-danger bg-opacity-15 text-danger">Reject</span>
+
+                                                }
+                                            </li>
+
+
+                                        </ul>
+                                        @if (Model.Event.Status == 2)
+                                        {
+                                            <a class="btn btn-sm btn-warning-soft me-1 mb-1 mb-md-0">Vui lòng đợi admin duyệt.</a>
+
+                                        }
+                                        @if (Model.Event.Status == 3)
+                                        {
+                                            <a class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0">Sự kiện của bạn  bị từ chối.</a>
+
+                                        }
+                                    </div>
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+
+                        <!-- Pagination END -->
+                    </div>
+                    @if(Model.Attendees.Count != 0)
+                    {
+                        <div class="col-12" id="go-on">
+                            <div class="card bg-transparent border">
+
+                                <!-- Card header START -->
+                                <div class="card-header bg-light border-bottom">
+                                    <h5 class="mb-0">All Registered Users - Total(@Model.TotalRegistered / @Model.Event.Capacity) member.</h5>
+                                </div>
+                                <!-- Card header END -->
+                                <!-- Card body START -->
+                                <div class="card-body pb-0">
+                                    <!-- Table START -->
+                                    <div class="table-responsive border-0">
+                                        <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+                                            <!-- Table head -->
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="border-0 rounded-start">ID</th>
+                                                    <th scope="col" class="border-0">UserName</th>
+                                                    <th scope="col" class="border-0">FullName</th>
+                                                    <th scope="col" class="border-0">Email</th>
+                                                    <th scope="col" class="border-0">Status</th>
+                                                    <th scope="col" class="border-0">RegisteredDate</th>
+                                                    <th scope="col" class="border-0 rounded-end">Action</th>
+
+                                                </tr>
+                                            </thead>
+
+                                            <!-- Table body START -->
+                                            <tbody>
+                                                @{
+                                                    var id = 1; // Khởi tạo biến đếm bắt đầu từ 1
+                                                }
+                                                <!-- Table row -->
+                                                @foreach (var item in Model.Attendees)
+                                                {
+                                                    <tr>
+                                                        <td class="text-center text-sm-start">
+                                                            <h6 class="mb-0">@id</h6>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center position-relative">
+                                                                <!-- Image -->
+                                                                <div class="avatar avatar-xs mb-2 mb-md-0">
+                                                                    @if (@item.UserId != null)
+                                                                    {
+                                                                        <img src="/assets/images/avatar/@item.User.Avatar" class="rounded-circle" alt="Avatar">
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img src="/assets/images/avatar/avatar-trang.jpg" class="rounded-circle" alt="Avatar">
+
+                                                                    }
+                                                                </div>
+                                                                <div class="mb-0 ms-2">
+                                                                    <!-- Title -->
+                                                                    @if (@item.UserId != null)
+                                                                    {
+                                                                        <h6 class="mb-0" style="font-size: 17px;"><a href="#" class="stretched-link">@item.User.Username</a></h6>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <h6 class="mb-0" style="font-size: 17px;"><a href="#" class="stretched-link">NoAccount</a></h6>
+
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <!-- Table data -->
+                                                        <td class="text-center text-sm-start">
+                                                            <h6 class="mb-0" v>@item.Name</h6>
+                                                        </td>
+                                                        <td class="text-center text-sm-start">
+                                                            <h6 class="mb-0" style="font-size: 15px;">@item.Email</h6>
+                                                        </td>
+                                                        <td class="text-center text-sm-start">
+                                                            @if(item.Status == "Live")
+                                                            {
+                                                                <span class="badge bg-success bg-opacity-15 text-success" style="font-size: 15px;">@item.Status</span>
+
+                                                            }
+                                                            else if(item.Status == "Pending")
+                                                            {
+                                                                <span class="badge bg-warning bg-opacity-15 text-warning" style="font-size: 15px;">@item.Status</span>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge bg-danger bg-opacity-15 text-danger" style="font-size: 15px;">@item.Status</span>
+
+                                                            }
+                                                        </td>
+                                                        <td class="text-center text-sm-start">
+                                                            <span class="badge bg-orange bg-opacity-15 text-danger" style="font-size: 15px;">@item.RegistrationTime</span>
+
+                                                        </td>
+
+                                                         <td>
+                                                            @if (item.Status == "Pending")
+                                                            {
+                                                                <a href="/MyEventDetails?handler=Approve&attendeesId=@item.AttendeeId#go-on" class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Approve</a>
+                                                                <a href="/MyEventDetails?handler=Reject&attendeesId=@item.AttendeeId#go-on" class="btn btn-sm btn-danger-soft mb-0">Reject</a>
+                                                            }else if(item.Status == "Reject")
+                                                            {
+                                                                <a href="/MyEventDetails?handler=Approve&attendeesId=@item.AttendeeId#go-on" class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Approve</a>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="/MyEventDetails?handler=Reject&attendeesId=@item.AttendeeId#go-on" class="btn btn-sm btn-danger-soft mb-0">Reject</a>
+
+                                                            }
+
+
+                                                         </td>
+                                                        <!-- Table data -->
+                                                        <!-- Table data -->
+
+                                                    </tr>
+                                                    id++; // Tăng ID lên 1 sau mỗi lần lặp
+
+                                                }
+                                                <!-- Table row -->
+                                            </tbody>
+                                            <!-- Table body END -->
+                                        </table>
+                                    </div>
+                                    <!-- Table END -->
+                                </div>
+                                <!-- Card body END -->
+                                <!-- Card footer START -->
+                                <!-- Card footer END -->
+                            </div>
+                        </div>
+                    }
+                   
+                    <!-- Card body START -->
+                </div>
+                <!-- Card END -->
+            </div>
+            <!-- Main content END -->
+        </div><!-- Row END -->
+    </div>
+</section>
+

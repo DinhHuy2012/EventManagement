@@ -1,0 +1,132 @@
+﻿@page "/Admin/ManageAccount/Delete"
+@model EventManagement.Pages.Admin.Account.DeleteModel
+@{
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@{
+	var item = Model.User;
+	ViewBag.Title = "Delete Account : " + item.Username;
+	Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+	var user = @HttpContextAccessor.HttpContext.Session.GetString("userEmail");
+}
+
+
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+
+	<div class="page-content">
+
+		<!-- Top bar START -->
+		<!-- Top bar END -->
+		<!-- Page main content START -->
+		<div class="page-content-wrapper border">
+
+			<!-- Title -->
+			<div class="row">
+				<div class="col-12 mb-3">
+					<h1 class="h3 mb-2 mb-sm-0">Delete Account : @item.Username</h1>
+				</div>
+			</div>
+
+			<div class="row g-4">
+
+				<!-- Personal information START -->
+				<div class="col-xxl-12">
+					<div class="card bg-transparent border rounded-3 h-100">
+
+						<!-- Card header -->
+						<div class="card-header bg-light border-bottom">
+							<h5 class="card-header-title mb-0">Are you sure you want to delete this?</h5>
+						</div>
+
+						<!-- Card body START -->
+						<div class="card-body">
+							<!-- Profile picture -->
+							<div class="avatar avatar-xl mb-3">
+								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="/assets/images/avatar/@Html.DisplayFor(model => model.User.Avatar)" alt="">
+							</div>
+
+							<!-- Information START -->
+							<div class="row">
+
+								<!-- Information item -->
+								<div class="col-md-6">
+									<ul class="list-group list-group-borderless">
+
+										<li class="list-group-item">
+											<span>Full Name:</span>
+											<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Fullname)</span>
+										</li>
+
+										<li class="list-group-item">
+											<span>User Name:</span>
+											<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Username)</span>
+										</li>
+										<li class="list-group-item">
+											<span>Password:</span>
+											<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Password)</span>
+										</li>
+										<li class="list-group-item">
+											<span>Mobile Number:</span>
+											<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Phone)</span>
+										</li>
+									</ul>
+								</div>
+
+								<!-- Information item -->
+								<div class="col-md-6">
+									<ul class="list-group list-group-borderless">
+										<li class="list-group-item">
+											<span>Email ID:</span>
+											<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Email)</span>
+										</li>
+
+										<li class="list-group-item">
+											<span>Role:</span>
+											<span class="h6 mb-0">@Html.DisplayFor(model => model.User.Role)</span>
+										</li>
+										<li class="list-group-item">
+											<span>Status:</span>
+											<span class="h6 mb-0">@item.Status</span>
+										</li>
+
+										<li class="list-group-item">
+											<span>Joining Date:</span>
+											<span class="h6 mb-0">@Html.DisplayFor(model => model.User.JoinDate)</span>
+										</li>
+									</ul>
+								</div>
+
+								<!-- Information item -->
+								
+							</div>
+							<!-- Information END -->
+						</div>
+
+						<form method="post" style="padding:50px 50px 50px 550px">
+							<input type="hidden" asp-for="User.UserId" />
+							<input type="submit" value="Delete" class="btn btn-danger" /> |
+							<a asp-page="./Index">Back to List</a>
+						</form>
+					</div>
+				
+				</div>
+			
+				<!-- Instructor course list END -->
+				<!-- Student review START -->
+				<!-- Student review END -->
+
+			</div> <!-- Row END -->
+		</div>
+		<!-- Page main content END -->
+
+	</div>
+	<!-- Page content END -->
+
+</main>
+
+

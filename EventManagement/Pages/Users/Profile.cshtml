@@ -1,0 +1,236 @@
+﻿@page "/Profile"
+@model EventManagement.Pages.Users.ProfileModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	ViewBag.Title = "Profile";
+	Layout = "~/Pages/Shared/_Layout.cshtml";
+
+}
+
+
+@{
+	var userEmail = HttpContextAccessor.HttpContext.Session.GetString("userEmail");
+	var userName = HttpContextAccessor.HttpContext.Session.GetString("userName");
+	var avatar = HttpContextAccessor.HttpContext.Session.GetString("avatar");
+	var role = HttpContextAccessor.HttpContext.Session.GetString("role");
+	var phone = HttpContextAccessor.HttpContext.Session.GetString("phone");
+	var userID = HttpContextAccessor.HttpContext.Session.GetString("userID");
+	var joinDate = HttpContextAccessor.HttpContext.Session.GetString("joinDate");
+
+}
+<!-- ==================
+Page Banner START -->
+<section class="pt-0">
+	<!-- Main banner background image -->
+	<div class="container-fluid px-0">
+		<div class="bg-blue h-100px h-md-50px rounded-0" style="background:url(assets/images/pattern/03.png) no-repeat center center; background-size:cover;">
+		</div>
+	</div>
+	<div class="container mt-n4">
+		<div class="row">
+			<!-- Profile banner START -->
+			<div class="col-12">
+				<div class="card bg-transparent card-body p-0">
+					<div class="row d-flex justify-content-between">
+						<!-- Avatar -->
+						<div class="col-auto mt-4 mt-md-0">
+							<div class="avatar avatar-xxl mt-n3">
+								<img class="avatar-img rounded-circle border border-white border-3 shadow" src="assets/images/avatar/@Model.Users.Avatar" alt="">
+							</div>
+						</div>
+						<!-- Profile info -->
+						<div class="col d-md-flex justify-content-between align-items-center mt-4">
+							<div>
+								<h1 class="my-1 fs-4">@Model.Users.Username <i class="bi bi-patch-check-fill text-info small"></i></h1>
+								<ul class="list-inline mb-0">
+									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-user"></i> @Model.Users.Role</li>
+
+									<li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fa fa-calendar"></i> @Model.Users.JoinDate</li>
+								</ul>
+							</div>
+							<!-- Button -->
+							<div class="d-flex align-items-center mt-2 mt-md-0">
+								<a href="/CreateEvent" class="btn btn-success mb-0">Create a event</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Profile banner END -->
+
+				<!-- Advanced filter responsive toggler START -->
+				<!-- Divider -->
+				<hr class="d-xl-none">
+				<div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
+					<a class="h6 mb-0 fw-bold d-xl-none" href="#">Menu</a>
+					<button class="btn btn-primary d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+						<i class="fas fa-sliders-h"></i>
+					</button>
+				</div>
+				<!-- Advanced filter responsive toggler END -->
+			</div>
+		</div>
+	</div>
+</section>
+<!-- =======================
+Page Banner END -->
+
+<!-- =======================
+Page content START -->
+<section class="pt-0">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-2">
+				<!-- Responsive offcanvas body START -->
+				<nav class="navbar navbar-light navbar-expand-xl mx-0">
+					<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+						<!-- Offcanvas header -->
+						<div class="offcanvas-header bg-light">
+							<h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
+							<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						</div>
+						<!-- Offcanvas body -->
+						<div class="offcanvas-body p-3 p-xl-0">
+							<div class="bg-dark border rounded-3 pb-0 p-3 w-100">
+								<!-- Dashboard menu -->
+								<div class="list-group list-group-dark list-group-borderless">
+									<a class="list-group-item" href="MyEvents?Id=@userID"><i class="bi bi-basket fa-fw me-2"></i>My Events</a>
+									<a class="list-group-item active" href="/Profile?Id=@userID"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</nav>
+				<!-- Responsive offcanvas body END -->
+			</div>
+			<!-- Right sidebar START -->
+			
+			<!-- Right sidebar END -->
+
+			<!-- Main content START -->
+			<div class="col-xl-5">
+				<!-- Edit profile START -->
+				<div class="card bg-transparent border rounded-3">
+					<!-- Card header -->
+					<div class="card-header bg-transparent border-bottom">
+						<h3 class="card-header-title mb-0">Edit Profile </h3>
+					</div>			
+					<!-- Card body START -->
+					<div class="card-body">
+						<!-- Form -->
+						<form method="post" class="row g-4">
+							<!-- Profile picture -->
+							<!-- Full name -->
+							<div class="col-6">
+								<label asp-for="Users.Username" class="form-label"></label>
+								<div class="input-group">
+									<input asp-for="Users.Username"  type="text" class="form-control"  readonly>
+								</div>
+							</div>						
+
+							<!-- Email id -->
+							<div class="col-md-6">
+								<label asp-for="Users.Email" class="form-label"></label>
+								<input asp-for="Users.Email" class="form-control" type="email" readonly>
+							</div>
+							<!-- Location -->
+							<div class="col-md-6">
+								<label asp-for="Users.Fullname" class="form-label"></label>
+								<input asp-for="Users.Fullname" class="form-control" type="text" >
+								<span asp-validation-for="Users.Fullname" class="text-danger"></span>
+
+							</div>
+
+							<!-- Phone number -->
+							<div class="col-md-6">
+								<label asp-for="Users.Phone" class="form-label"></label>
+								<input asp-for="Users.Phone" type="text" class="form-control">
+								<span asp-validation-for="Users.Phone" class="text-danger"></span>
+
+							</div>
+							<!-- About me -->
+							<!-- Save button -->
+							<div class="d-sm-flex justify-content-end">
+								<button type="submit" class="btn btn-primary mb-0">Save changes</button>
+							</div>
+						</form>
+						@if (ViewData["SuccessMessageUpdateProfile"] != null)
+						{
+							<div class="alert alert-success">
+								@ViewData["SuccessMessageUpdateProfile"]
+							</div>
+						}
+					</div>
+					<!-- Card body END -->
+				</div>
+				<!-- Edit profile END -->
+
+			</div>
+			<div class="col-xl-5">
+				<!-- Edit profile START -->
+				<div class="card bg-transparent border rounded-3">
+					<!-- Card header -->
+					<div class="card-header bg-transparent border-bottom">
+						<h3 class="card-header-title mb-0">Edit Password </h3>
+					</div>
+					<!-- Card body START -->
+					<div class="card-body">
+						<!-- Form -->
+						<form method="post" asp-page-handler="ChangePassword">
+							<div class="card-body">
+								<!-- Current password -->
+								<div class="mb-3">
+									<label class="form-label">Current password</label>
+									<input asp-for="CurrentPassword" class="form-control" type="password" placeholder="Enter current password" />
+									<span asp-validation-for="CurrentPassword" class="text-danger"></span>
+								</div>
+
+								<!-- New password -->
+								<div class="mb-3">
+									<label class="form-label">Enter new password</label>
+									<div class="input-group">
+										<input asp-for="NewPassword" class="form-control" type="password" placeholder="Enter new password" />
+									
+									</div>
+									<div class="rounded mt-1" id="psw-strength"></div>
+									<span asp-validation-for="NewPassword" class="text-danger"></span>
+								</div>
+
+								<!-- Confirm password -->
+								<div>
+									<label class="form-label">Confirm new password</label>
+									<input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Confirm new password" />
+									<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+								</div>
+
+								<!-- Button -->
+								<div class="d-flex justify-content-end mt-4">
+									<button id="comeon" type="submit" class="btn btn-primary mb-0">Change password</button>
+								</div>
+							</div>
+						</form>
+						@if (ViewData["SuccessMessageUpdatePassword"] != null)
+						{
+							<div class="alert alert-success">
+								@ViewData["SuccessMessageUpdatePassword"]
+							</div>
+						}
+					</div>
+					<!-- Card body END -->
+				</div>
+			</div>
+			<!-- Main content END -->
+		</div><!-- Row END -->
+	</div>
+</section>
+<!-- =======================
+Page content END -->
+
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+
+<!-- =======================
+Footer END -->
+
